@@ -11,11 +11,21 @@ def move(Rd):
     if not (0 <= current + Rd < len(image_list)):
         return
     current += Rd
-    image = Image.open(image_list[current])
-    photo = ImageTk.PhotoImage(image)
-    label['text'] = text_list[current]
-    label['image'] = photo
-    label.photo = photo
+    file=str(image_list[current])
+    if file[len(str)-3:]=="jpg":
+        image = Image.open(image_list[current])
+        photo = ImageTk.PhotoImage(image)
+        label['text'] = text_list[current]
+        label['image'] = photo
+        label.photo = photo
+    elif file[len(str)-3:]=="png":
+        Imagex=Image.open(image_list[current])
+        label=Label(image=Imagex)
+    elif file[len(str)-3:]=="ppm":
+        img = PhotoImage(file=image_list[current]) 
+        canvas = Canvas(root, width = 300, height = 300)      
+        canvas.create_image(20,20, anchor=NW, image=img)
+    
 
 
 root = tkinter.Tk()
